@@ -12,21 +12,18 @@ const contactChannels = [
   {
     label: 'Email',
     value: 'admin@hardjunc.dev',
-    detail: 'For partnerships, demos, and early access.',
     href: 'mailto:admin@hardjunc.dev',
     icon: Mail,
   },
   {
     label: 'LinkedIn',
     value: 'HardJunc',
-    detail: 'Follow the studio and reach the team.',
     href: 'https://www.linkedin.com/company/hardjunc',
     icon: Linkedin,
   },
   {
     label: 'Address',
     value: 'Sudha & Shankar Innovation Hub\nIndian Institute Of Technology Madras\nChennai-600036',
-    detail: 'Built from IIT Madras, for hardware creators everywhere.',
     icon: MapPin,
   },
 ];
@@ -37,18 +34,16 @@ const teamContacts = [
     role: 'Founder and CEO',
     phone: '+91 6380790971',
     email: 'ceo@hardjunc.dev',
-    linkedin: 'https://www.linkedin.com/company/hardjunc',
+    linkedin: 'https://www.linkedin.com/in/jesvitha-k-386997308/',
   },
   {
     name: 'Rahul Roy',
     role: 'Co-Founder and CTO',
     phone: '+91 9174471745',
     email: 'cto@hardjunc.dev',
-    linkedin: 'https://www.linkedin.com/company/hardjunc',
+    linkedin: 'https://www.linkedin.com/in/rahul-roy-24238831b/',
   },
 ];
-
-const responseSignals = ['Demos', 'Partnerships', 'Early Access', 'Product Conversations'];
 
 export default function Contact() {
   const navigate = useNavigate();
@@ -128,32 +123,6 @@ export default function Contact() {
               </a>
             </motion.div>
           </div>
-
-          <motion.aside
-            initial={{ opacity: 0, y: 28, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.42, ease: 'easeOut' }}
-            className="contact-signal-panel"
-          >
-            <div className="panel-topline">
-              <span>Signal Router</span>
-              <span>ONLINE</span>
-            </div>
-            <div className="panel-core">
-              <div className="panel-ring">
-                <span />
-              </div>
-              <div>
-                <p>Primary inbox</p>
-                <a href="mailto:admin@hardjunc.dev">admin@hardjunc.dev</a>
-              </div>
-            </div>
-            <div className="panel-signals">
-              {responseSignals.map((signal) => (
-                <span key={signal}>{signal}</span>
-              ))}
-            </div>
-          </motion.aside>
         </section>
 
         <section className="contact-section">
@@ -174,7 +143,7 @@ export default function Contact() {
               const body = (
                 <>
                   <div className="channel-icon">
-                    <Icon size={18} />
+                    <Icon size={16} />
                   </div>
                   <div>
                     <span className="contact-card-label">{channel.label}</span>
@@ -184,7 +153,6 @@ export default function Contact() {
                       ))}
                     </span>
                   </div>
-                  <p>{channel.detail}</p>
                 </>
               );
 
@@ -306,7 +274,7 @@ export default function Contact() {
           z-index: 1;
           pointer-events: none;
           background:
-            radial-gradient(circle at 74% 22%, rgba(16, 185, 129, 0.14), transparent 28%),
+            radial-gradient(circle at 76% 18%, rgba(16, 185, 129, 0.1), transparent 28%),
             linear-gradient(90deg, rgba(7, 9, 9, 0.94), rgba(7, 9, 9, 0.54) 46%, rgba(7, 9, 9, 0.9)),
             linear-gradient(180deg, rgba(7, 9, 9, 0.08), rgba(7, 9, 9, 0.96));
         }
@@ -323,6 +291,7 @@ export default function Contact() {
           align-items: center;
           justify-content: space-between;
           pointer-events: none;
+          background: linear-gradient(180deg, rgba(7, 9, 9, 0.82), rgba(7, 9, 9, 0));
         }
 
         .contact-brand,
@@ -362,12 +331,10 @@ export default function Contact() {
         }
 
         .contact-hero {
-          min-height: 100svh;
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(340px, 0.55fr);
+          min-height: 82svh;
+          display: flex;
           align-items: center;
-          gap: clamp(42px, 6vw, 86px);
-          padding: clamp(112px, 16svh, 170px) 5vw clamp(58px, 8svh, 86px);
+          padding: clamp(108px, 18svh, 180px) 5vw clamp(58px, 8svh, 86px);
         }
 
         .contact-copy {
@@ -377,9 +344,9 @@ export default function Contact() {
         .contact-copy h1 {
           margin: clamp(32px, 4vw, 52px) 0 clamp(28px, 3.5vw, 42px);
           font-family: 'GeistMono', monospace;
-          font-size: clamp(58px, 8.2vw, 132px);
-          line-height: 0.96;
-          letter-spacing: -0.045em;
+          font-size: clamp(48px, 6vw, 96px);
+          line-height: 1;
+          letter-spacing: -3px;
           color: #ffffff;
           font-weight: 400;
           text-shadow: 0 4px 24px rgba(0, 0, 0, 0.82);
@@ -396,8 +363,8 @@ export default function Contact() {
           margin: 0;
           font-family: 'Inter', sans-serif;
           font-weight: 300;
-          font-size: clamp(17px, 1.45vw, 22px);
-          line-height: 1.75;
+          font-size: clamp(16px, 1.6vw, 22px);
+          line-height: 1.7;
           color: #a0a0a0;
           text-shadow: 0 2px 12px rgba(0, 0, 0, 0.62);
         }
@@ -435,124 +402,14 @@ export default function Contact() {
           transform: translateX(2px);
         }
 
-        .contact-signal-panel {
-          position: relative;
-          overflow: hidden;
-          border: 1px solid rgba(16, 185, 129, 0.2);
-          background:
-            linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(255, 255, 255, 0.025)),
-            rgba(5, 10, 10, 0.68);
-          box-shadow: 0 42px 140px rgba(0, 0, 0, 0.42), inset 0 0 0 1px rgba(255, 255, 255, 0.025);
-          backdrop-filter: blur(16px);
-          padding: clamp(26px, 3vw, 34px);
-          min-height: 430px;
-        }
-
-        .contact-signal-panel::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.08), transparent);
-          transform: translateX(-100%);
-          animation: contact-scan 4.8s ease-in-out infinite;
-        }
-
-        @keyframes contact-scan {
-          0%, 35% { transform: translateX(-100%); }
-          70%, 100% { transform: translateX(100%); }
-        }
-
-        .panel-topline {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          justify-content: space-between;
-          gap: 20px;
-          font-family: 'GeistMono', monospace;
-          font-size: 11px;
-          color: #a4f2d8;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-        }
-
-        .panel-core {
-          position: relative;
-          z-index: 1;
-          display: grid;
-          gap: 26px;
-          place-items: center;
-          text-align: center;
-          min-height: 260px;
-          margin: 30px 0;
-          border-top: 1px solid rgba(16, 185, 129, 0.14);
-          border-bottom: 1px solid rgba(16, 185, 129, 0.14);
-        }
-
-        .panel-ring {
-          width: 118px;
-          height: 118px;
-          border-radius: 999px;
-          border: 1px solid rgba(16, 185, 129, 0.4);
-          display: grid;
-          place-items: center;
-          box-shadow: 0 0 70px rgba(16, 185, 129, 0.12);
-        }
-
-        .panel-ring span {
-          width: 18px;
-          height: 18px;
-          border-radius: 999px;
-          background: #10b981;
-          box-shadow: 0 0 26px rgba(16, 185, 129, 0.78);
-          animation: contact-pulse 2.4s ease-in-out infinite;
-        }
-
-        @keyframes contact-pulse {
-          0%, 100% { transform: scale(0.86); opacity: 0.78; }
-          50% { transform: scale(1.18); opacity: 1; }
-        }
-
-        .panel-core p {
-          margin: 0 0 10px;
-          color: #8aa39d;
-          font-family: 'Inter', sans-serif;
-          font-size: 13px;
-          letter-spacing: 0.04em;
-        }
-
-        .panel-core a {
-          color: #ffffff;
-          text-decoration: none;
-          font-family: 'GeistMono', monospace;
-          font-size: clamp(18px, 1.6vw, 24px);
-          letter-spacing: -0.04em;
-        }
-
-        .panel-signals {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-
-        .panel-signals span {
-          border: 1px solid rgba(16, 185, 129, 0.18);
-          background: rgba(0, 0, 0, 0.24);
-          color: #b7ddd3;
-          font-family: 'Inter', sans-serif;
-          font-size: 12px;
-          padding: 10px 12px;
-        }
-
         .contact-section {
           position: relative;
-          padding: 0 5vw clamp(86px, 10vw, 130px);
+          padding: 0 5vw clamp(72px, 8vw, 110px);
         }
 
         .contact-section-head {
           max-width: 1400px;
-          margin: 0 auto 32px;
+          margin: 0 auto 24px;
         }
 
         .contact-section-head span,
@@ -562,12 +419,12 @@ export default function Contact() {
           text-transform: uppercase;
           color: #a4f2d8;
           letter-spacing: 0.2em;
-          font-size: 11px;
+          font-size: 10px;
           font-weight: 300;
         }
 
         .contact-section-head .section-divider {
-          margin-top: 20px;
+          margin-top: 18px;
         }
 
         .contact-channel-grid,
@@ -575,7 +432,7 @@ export default function Contact() {
           max-width: 1400px;
           margin: 0 auto;
           display: grid;
-          gap: 24px;
+          gap: 20px;
         }
 
         .contact-channel-grid {
@@ -606,18 +463,19 @@ export default function Contact() {
 
         .contact-info-card > a,
         .contact-info-card > div {
-          min-height: 250px;
-          display: grid;
-          align-content: space-between;
-          gap: 24px;
-          padding: 30px;
+          min-height: 150px;
+          display: flex;
+          align-items: flex-start;
+          gap: 18px;
+          padding: 24px;
           color: inherit;
           text-decoration: none;
         }
 
         .channel-icon {
-          width: 48px;
-          height: 48px;
+          width: 40px;
+          height: 40px;
+          flex: 0 0 auto;
           display: grid;
           place-items: center;
           border: 1px solid rgba(16, 185, 129, 0.22);
@@ -627,25 +485,17 @@ export default function Contact() {
 
         .contact-card-value {
           display: grid;
-          gap: 7px;
-          margin-top: 18px;
+          gap: 5px;
+          margin-top: 12px;
           font-family: 'Inter', sans-serif;
           color: rgba(243, 244, 246, 0.86);
-          font-size: 18px;
-          line-height: 1.5;
+          font-size: 15px;
+          line-height: 1.45;
           font-weight: 300;
         }
 
-        .contact-info-card p {
-          margin: 0;
-          font-family: 'Inter', sans-serif;
-          font-size: 13px;
-          line-height: 1.7;
-          color: #8fa29e;
-        }
-
         .contact-person-card {
-          padding: clamp(30px, 3vw, 42px);
+          padding: clamp(26px, 2.6vw, 34px);
         }
 
         .contact-person-heading {
@@ -653,23 +503,23 @@ export default function Contact() {
           justify-content: space-between;
           align-items: flex-start;
           gap: 24px;
-          padding-bottom: 34px;
+          padding-bottom: 28px;
         }
 
         .contact-person-heading span {
           display: block;
-          margin-bottom: 18px;
+          margin-bottom: 14px;
           font-family: 'GeistMono', monospace;
           color: #10b981;
-          font-size: 14px;
+          font-size: 12px;
         }
 
         .contact-person-heading h2 {
           margin: 0;
           font-family: 'EB Garamond', serif;
-          font-size: clamp(44px, 4vw, 64px);
-          line-height: 0.95;
-          letter-spacing: -0.03em;
+          font-size: clamp(34px, 3.2vw, 48px);
+          line-height: 1;
+          letter-spacing: -1px;
           color: #ffffff;
           font-weight: 500;
         }
@@ -678,15 +528,15 @@ export default function Contact() {
           margin: 14px 0 0;
           font-family: 'Inter', sans-serif;
           color: #92e9cf;
-          font-size: 18px;
+          font-size: 15px;
           line-height: 1.35;
           font-weight: 300;
         }
 
         .contact-linkedin {
           flex: 0 0 auto;
-          width: 52px;
-          height: 52px;
+          width: 46px;
+          height: 46px;
           display: grid;
           place-items: center;
           border: 1px solid rgba(16, 185, 129, 0.42);
@@ -711,7 +561,7 @@ export default function Contact() {
           display: grid;
           grid-template-columns: minmax(120px, 0.5fr) minmax(0, 1fr);
           gap: 24px;
-          padding: 20px 0;
+          padding: 16px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.09);
         }
 
@@ -726,7 +576,7 @@ export default function Contact() {
           margin: 0;
           text-align: right;
           font-family: 'Inter', sans-serif;
-          font-size: 17px;
+          font-size: 15px;
           color: rgba(243, 244, 246, 0.84);
           font-weight: 300;
         }
@@ -743,12 +593,7 @@ export default function Contact() {
 
         @media (max-width: 1100px) {
           .contact-hero {
-            grid-template-columns: 1fr;
             min-height: auto;
-          }
-
-          .contact-signal-panel {
-            min-height: 320px;
           }
 
           .contact-channel-grid,
@@ -772,34 +617,26 @@ export default function Contact() {
           }
 
           .contact-hero {
-            padding: 96px 18px 58px;
-            gap: 34px;
+            padding: 96px 18px 52px;
           }
 
           .contact-copy h1 {
-            font-size: clamp(48px, 15vw, 74px);
+            font-size: clamp(42px, 13vw, 64px);
+            letter-spacing: -2px;
           }
 
           .contact-copy p {
             font-size: 16px;
           }
 
-          .contact-signal-panel {
-            min-height: auto;
-          }
-
-          .panel-core {
-            min-height: 220px;
-          }
-
           .contact-section {
-            padding: 0 18px 78px;
+            padding: 0 18px 64px;
           }
 
           .contact-info-card > a,
           .contact-info-card > div {
-            min-height: 220px;
-            padding: 26px 24px;
+            min-height: 132px;
+            padding: 22px;
           }
 
           .contact-person-heading {
@@ -807,11 +644,11 @@ export default function Contact() {
           }
 
           .contact-person-heading h2 {
-            font-size: 42px;
+            font-size: 34px;
           }
 
           .contact-person-heading p {
-            font-size: 16px;
+            font-size: 15px;
           }
 
           .contact-person-details div {
@@ -821,7 +658,7 @@ export default function Contact() {
 
           .contact-person-details dd {
             text-align: left;
-            font-size: 16px;
+            font-size: 15px;
           }
         }
       `}</style>
