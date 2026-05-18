@@ -1,163 +1,264 @@
-import { useEffect, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
+import { motion, AnimatePresence } from 'framer-motion';
 import { capabilitiesConfig } from '../config';
 
 export default function Curriculum() {
   const navigate = useNavigate();
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    const items = itemRefs.current.filter(Boolean) as HTMLDivElement[];
-    const observers: IntersectionObserver[] = [];
-
-    items.forEach((item, index) => {
-      gsap.set(item, { opacity: 0, y: 60 });
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              gsap.to(item, {
-                opacity: 1,
-                y: 0,
-                duration: 1.0,
-                delay: index * 0.15,
-                ease: 'power3.out',
-              });
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.2 }
-      );
-
-      observer.observe(item);
-      observers.push(observer);
-    });
-
-    return () => {
-      observers.forEach((o) => o.disconnect());
-    };
-  }, []);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const selectedItem = capabilitiesConfig.items[selectedIndex] || capabilitiesConfig.items[0];
 
   if (!capabilitiesConfig.sectionLabel && capabilitiesConfig.items.length === 0) {
     return null;
   }
+
+  const previewDetails = useMemo(
+    () => [
+      'Unified hardware + software workflow',
+      'Premium guided debugging and simulation',
+      'Intent-driven design with AI assistance',
+    ],
+    []
+  );
 
   return (
     <section
       id="curriculum"
       className="relative"
       style={{
-        padding: '150px 5vw',
-        minHeight: '100vh',
-        background: 'transparent',
+        padding: '100px 4vw',
+        minHeight: 'auto',
+        background: 'linear-gradient(180deg, #060708 0%, #080b0d 100%)',
       }}
     >
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         {capabilitiesConfig.sectionLabel && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-6"
+            className="mb-5"
             style={{
               fontFamily: "'Inter', sans-serif",
               fontSize: 12,
               fontWeight: 300,
               letterSpacing: '3px',
               textTransform: 'uppercase',
-              color: '#dadada',
-              opacity: 0.6,
+              color: '#a4f2d8',
+              opacity: 0.85,
             }}
           >
             {capabilitiesConfig.sectionLabel}
           </motion.div>
         )}
-        <div className="section-divider mb-20" />
 
-        <div className="flex flex-col" style={{ gap: 100 }}>
-          {capabilitiesConfig.items.map((discipline, i) => (
-            <div
-              key={discipline.title}
-              ref={(el) => { itemRefs.current[i] = el; }}
-              className="flex flex-col md:flex-row md:items-start"
-              style={{ gap: '40px', cursor: 'pointer' }}
-              onClick={() => navigate(`/capability/${discipline.slug}`)}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div style={{ flex: '0 0 70%' }}>
-                <h3
+        <div className="section-divider mb-12" />
+
+        <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
+          <div className="space-y-4">
+            {capabilitiesConfig.items.map((item, index) => {
+              const active = index === selectedIndex;
+              return (
+                <button
+                  type="button"
+                  key={item.slug}
+                  onMouseEnter={() => setSelectedIndex(index)}
+                  onClick={() => navigate(`/capability/${item.slug}`)}
                   style={{
-                    fontFamily: "'EB Garamond', serif",
-                    fontWeight: 400,
-                    fontSize: 'clamp(40px, 5.4vw, 86.4px)',
-                    lineHeight: 1.05,
-                    letterSpacing: '-1.44px',
-                    color: hoveredIndex === i ? '#10b981' : '#ffffff',
-                    margin: 0,
-                    textWrap: 'balance',
-                    transition: 'color 0.4s ease',
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: '22px 20px',
+                    borderRadius: 24,
+                    border: active ? '1px solid rgba(16, 185, 129, 0.9)' : '1px solid rgba(255,255,255,0.08)',
+                    background: active ? 'rgba(16, 185, 129, 0.08)' : 'rgba(255,255,255,0.02)',
+                    boxShadow: active ? '0 28px 80px rgba(16, 185, 129, 0.14)' : '0 0 0 rgba(0,0,0,0)',
+                    cursor: 'pointer',
+                    transition: 'all 0.35s ease',
                   }}
                 >
-                  {discipline.title}
-                </h3>
-              </div>
-              <div
-                className="flex items-start"
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      gap: 12,
+                    }}
+                  >
+                    <div>
+                      <h3
+                        style={{
+                          fontFamily: "'EB Garamond', serif",
+                          fontSize: 22,
+                          margin: 0,
+                          color: '#fff',
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        {item.title}
+                      </h3>
+                      <p
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: 13,
+                          color: '#9ccfc4',
+                          marginTop: 10,
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
+                    <span
+                      style={{
+                        fontFamily: "'Fira Code', monospace",
+                        fontSize: 11,
+                        color: active ? '#a4f2d8' : '#7dd3fc',
+                        opacity: 0.95,
+                        minWidth: 50,
+                        textAlign: 'right',
+                      }}
+                    >
+                      {item.slug.replace(/-/g, ' ').toUpperCase()}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          <div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedItem.slug}
+                initial={{ opacity: 0, y: 25, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -25, scale: 0.98 }}
+                transition={{ duration: 0.45 }}
                 style={{
-                  flex: '1 1 30%',
-                  paddingTop: 'clamp(4px, 1vw, 16px)',
-                  position: 'relative',
+                  borderRadius: 32,
                   overflow: 'hidden',
-                  minHeight: hoveredIndex === i ? 200 : 'auto',
-                  transition: 'min-height 0.4s ease',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  background: 'rgba(255,255,255,0.03)',
+                  boxShadow: '0 40px 120px rgba(0,0,0,0.4)',
                 }}
               >
-                {/* Description text — fades out on hover */}
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 200,
-                    fontSize: 15,
-                    lineHeight: 1.8,
-                    color: '#dadada',
-                    margin: 0,
-                    textWrap: 'pretty',
-                    opacity: hoveredIndex === i ? 0 : 1,
-                    transition: 'opacity 0.35s ease',
-                  }}
-                >
-                  {discipline.description}
-                </p>
-
-                {/* Image — fades in on hover */}
-                {discipline.image && (
-                  <img
-                    src={discipline.image}
-                    alt={discipline.title}
+                {selectedItem.image && (
+                  <div
                     style={{
-                      position: 'absolute',
-                      inset: 0,
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      opacity: hoveredIndex === i ? 1 : 0,
-                      transform: hoveredIndex === i ? 'scale(1)' : 'scale(1.05)',
-                      transition: 'opacity 0.45s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-                      filter: 'grayscale(30%)',
+                      position: 'relative',
+                      minHeight: 240,
+                      maxHeight: 280,
+                      overflow: 'hidden',
                     }}
-                    loading="lazy"
-                  />
+                  >
+                    <img
+                      src={selectedItem.image}
+                      alt={selectedItem.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.75)',
+                        transition: 'transform 0.8s ease',
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'radial-gradient(circle at top left, rgba(16,185,129,0.2), transparent 32%), linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.45))',
+                      }}
+                    />
+                  </div>
                 )}
-              </div>
-            </div>
-          ))}
+                <div style={{ padding: '28px 30px 24px' }}>
+                  <div
+                    style={{
+                      display: 'inline-block',
+                      padding: '10px 14px',
+                      borderRadius: 999,
+                      background: 'rgba(16, 185, 129, 0.12)',
+                      color: '#a4f2d8',
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: 11,
+                      letterSpacing: '0.18em',
+                      textTransform: 'uppercase',
+                      marginBottom: 18,
+                    }}
+                  >
+                    Premium Insight
+                  </div>
+                  <h2
+                    style={{
+                      fontFamily: "'EB Garamond', serif",
+                      fontSize: 32,
+                      margin: 0,
+                      color: '#ffffff',
+                      lineHeight: 1.05,
+                    }}
+                  >
+                    {selectedItem.title}
+                  </h2>
+                  <p
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: 15,
+                      color: '#d2d8df',
+                      margin: '20px 0 0',
+                      lineHeight: 1.85,
+                    }}
+                  >
+                    {selectedItem.description}
+                  </p>
+
+                <div style={{ display: 'grid', gap: 12, marginTop: 26 }}>
+                    {previewDetails.map((detail) => (
+                      <div
+                        key={detail}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          padding: '14px 16px',
+                          borderRadius: 18,
+                          background: 'rgba(255,255,255,0.04)',
+                          border: '1px solid rgba(255,255,255,0.08)',
+                        }}
+                      >
+                        <span style={{ color: '#10b981', fontSize: 14 }}>•</span>
+                        <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, color: '#d1d5db' }}>
+                          {detail}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                <div style={{ marginTop: 26, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: 12, color: '#9ca3af' }}>
+                      Transform bottlenecks into premium flow with a unified workspace.
+                    </span>
+                    <button
+                      type="button"
+                      style={{
+                        borderRadius: 999,
+                        padding: '11px 20px',
+                        fontSize: 13,
+                        fontWeight: 600,
+                        background: '#10b981',
+                        color: '#020617',
+                        border: 'none',
+                        cursor: 'pointer',
+                        boxShadow: '0 16px 32px rgba(16,185,129,0.22)',
+                      }}
+                    >
+                      Explore the workflow
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
