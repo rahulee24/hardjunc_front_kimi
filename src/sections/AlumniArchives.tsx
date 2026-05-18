@@ -223,7 +223,8 @@ export default function AlumniArchives() {
                       borderRadius: 24,
                       marginBottom: 20,
                       position: 'relative',
-                      minHeight: 180,
+                      minHeight: 140,
+                      maxHeight: 220,
                     }}
                   >
                     <img
@@ -231,6 +232,8 @@ export default function AlumniArchives() {
                       alt={selectedProject.title}
                       className="w-full h-full object-cover"
                       style={{
+                        maxHeight: '220px',
+                        width: '100%',
                         filter: 'contrast(1.05) brightness(0.95)',
                         transition: 'transform 0.5s ease',
                       }}
