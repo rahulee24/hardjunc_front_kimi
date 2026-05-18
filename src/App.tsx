@@ -8,6 +8,7 @@ import AiDemo from './sections/AiDemo';
 import AlumniArchives from './sections/AlumniArchives';
 import Footer from './sections/Footer';
 import CapabilityDetail from './sections/CapabilityDetail';
+import Contact from './sections/Contact';
 import CustomCursor from './components/CustomCursor';
 
 function HomePage() {
@@ -41,6 +42,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/capability/:slug" element={<CapabilityDetail />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
 }

@@ -31,7 +31,7 @@ export const navigationConfig: NavigationConfig = {
     { label: "Our Story", href: "#curriculum" },
     { label: "Infrastructure", href: "#cinematic" },
     { label: "Research", href: "#alumni" },
-    { label: "Contact", href: "#footer" },
+    { label: "Contact", href: "/contact" },
   ],
   ctaText: "Launch App",
 };
