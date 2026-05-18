@@ -113,7 +113,7 @@ export default function CinematicVision() {
                 >
                   {architectureConfig.description}
                 </p>
-                <a href="https://cadmint.vercel.app" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                <a href="https://cadmint.hardjunc.dev" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                   <LiquidGlassButton>
                     <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                       Launch Ecosystem

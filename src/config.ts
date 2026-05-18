@@ -28,7 +28,7 @@ export interface NavigationConfig {
 
 export const navigationConfig: NavigationConfig = {
   links: [
-    { label: "Our Story", href: "#curriculum" },
+    { label: "Our Story", href: "#problems" },
     { label: "Infrastructure", href: "#cinematic" },
     { label: "Research", href: "#alumni" },
     { label: "Contact", href: "/contact" },
@@ -57,7 +57,7 @@ export const heroConfig: HeroConfig = {
   titleLine3: "TOOLS.",
   subtitle: "The intelligent workspace for hardware creators. An end-to-end ecosystem connecting AI design, real-time simulation, and physical debugging.",
   ctaText: "Open Studio",
-  ctaUrl: "https://cadmint.vercel.app",
+  ctaUrl: "https://cadmint.hardjunc.dev",
 };
 
 // ============================================================
@@ -225,10 +225,15 @@ export const researchConfig: ResearchConfig = {
 
 export interface FooterLinkColumn {
   title: string;
-  links: string[];
+  links: FooterLink[];
 }
 
 export interface FooterBottomLink {
+  label: string;
+  href: string;
+}
+
+export interface FooterLink {
   label: string;
   href: string;
 }
@@ -245,11 +250,15 @@ export const footerConfig: FooterConfig = {
   columns: [
     {
       title: "Platform",
-      links: ["CADmint Studio", "Our Story", "Careers"],
+      links: [
+        { label: "CADmint Studio", href: "https://cadmint.hardjunc.dev" },
+        { label: "Our Story", href: "/#problems" },
+        { label: "Careers", href: "/contact" },
+      ],
     },
     {
       title: "Contact",
-      links: ["Email Us"],
+      links: [{ label: "Email Us", href: "/contact" }],
     },
   ],
   copyright: "\u00A9 2026 HardJunc. THE PROTOTYPE POWERED BY YOU.",

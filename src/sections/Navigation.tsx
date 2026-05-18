@@ -71,7 +71,7 @@ export default function Navigation() {
 
       {navigationConfig.ctaText && (
         <motion.a
-          href="https://cadmint.vercel.app"
+          href="https://cadmint.hardjunc.dev"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-flex items-center"

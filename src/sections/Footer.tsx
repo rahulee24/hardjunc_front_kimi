@@ -155,12 +155,14 @@ export default function Footer() {
                 )}
                 {column.links.map((link) => (
                   <a
-                    key={link}
-                    href="#"
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     className="nav-link"
                     style={{ width: 'fit-content' }}
                   >
-                    {link}
+                    {link.label}
                   </a>
                 ))}
               </div>
