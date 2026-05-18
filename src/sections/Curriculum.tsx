@@ -7,11 +7,6 @@ export default function Curriculum() {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const selectedItem = capabilitiesConfig.items[selectedIndex] || capabilitiesConfig.items[0];
-
-  if (!capabilitiesConfig.sectionLabel && capabilitiesConfig.items.length === 0) {
-    return null;
-  }
-
   const previewDetails = useMemo(
     () => [
       'Unified hardware + software workflow',
@@ -20,6 +15,10 @@ export default function Curriculum() {
     ],
     []
   );
+
+  if (!capabilitiesConfig.sectionLabel && capabilitiesConfig.items.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -79,13 +78,27 @@ export default function Curriculum() {
                 >
                   <div
                     style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'flex-start',
-                      gap: 12,
+                      display: 'grid',
+                      gap: 10,
                     }}
                   >
                     <div>
+                      <span
+                        style={{
+                          display: 'block',
+                          fontFamily: "'Fira Code', monospace",
+                          fontSize: 10,
+                          lineHeight: 1.4,
+                          color: active ? '#a4f2d8' : '#7dd3fc',
+                          opacity: 0.9,
+                          letterSpacing: '0.14em',
+                          textAlign: 'left',
+                          textTransform: 'uppercase',
+                          marginBottom: 10,
+                        }}
+                      >
+                        {item.slug.replace(/-/g, ' ')}
+                      </span>
                       <h3
                         style={{
                           fontFamily: "'EB Garamond', serif",
@@ -109,18 +122,6 @@ export default function Curriculum() {
                         {item.description}
                       </p>
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "'Fira Code', monospace",
-                        fontSize: 11,
-                        color: active ? '#a4f2d8' : '#7dd3fc',
-                        opacity: 0.95,
-                        minWidth: 50,
-                        textAlign: 'right',
-                      }}
-                    >
-                      {item.slug.replace(/-/g, ' ').toUpperCase()}
-                    </span>
                   </div>
                 </button>
               );
