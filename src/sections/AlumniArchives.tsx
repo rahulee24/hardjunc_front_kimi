@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { researchConfig } from '../config';
 
@@ -48,6 +48,14 @@ const premiumDetails: Record<string, string[]> = {
 export default function AlumniArchives() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const selectedProject = researchConfig.projects[selectedIndex] || researchConfig.projects[0];
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setSelectedIndex((current) => (current + 1) % researchConfig.projects.length);
+    }, 4200);
+    return () => window.clearInterval(interval);
+  }, []);
+
   if (!researchConfig.sectionLabel && researchConfig.projects.length === 0) {
     return null;
   }
@@ -56,13 +64,13 @@ export default function AlumniArchives() {
     <section
       id="alumni"
       style={{
-        padding: '150px 5vw',
+        padding: '100px 4vw',
         background: '#0a0a0a',
         position: 'relative',
         zIndex: 2,
       }}
     >
-      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         {researchConfig.sectionLabel && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -83,10 +91,10 @@ export default function AlumniArchives() {
             {researchConfig.sectionLabel}
           </motion.div>
         )}
-        <div className="section-divider mb-16" />
+        <div className="section-divider mb-12" />
 
-        <div className="grid gap-8 lg:grid-cols-[320px_minmax(0,1fr)]">
-          <div className="space-y-4">
+        <div className="grid gap-5 lg:grid-cols-[280px_minmax(0,1fr)]">
+          <div className="space-y-3">
             {researchConfig.projects.map((project, index) => {
               const active = index === selectedIndex;
               return (
@@ -94,11 +102,11 @@ export default function AlumniArchives() {
                   key={project.title}
                   type="button"
                   onClick={() => setSelectedIndex(index)}
-                  className="w-full text-left rounded-3xl border px-5 py-6 transition-all duration-300"
+                  className="w-full text-left rounded-3xl border px-4 py-5 transition-all duration-300"
                   style={{
                     borderColor: active ? 'rgba(16, 185, 129, 0.85)' : 'rgba(255, 255, 255, 0.08)',
                     background: active ? 'rgba(16, 185, 129, 0.08)' : 'rgba(255,255,255,0.02)',
-                    boxShadow: active ? '0 24px 80px rgba(16, 185, 129, 0.18)' : 'none',
+                    boxShadow: active ? '0 18px 60px rgba(16, 185, 129, 0.14)' : 'none',
                   }}
                 >
                   <div
@@ -113,9 +121,9 @@ export default function AlumniArchives() {
                       <div
                         style={{
                           fontFamily: "'EB Garamond', serif",
-                          fontSize: 18,
+                          fontSize: 16,
                           color: '#fff',
-                          marginBottom: 4,
+                          marginBottom: 2,
                         }}
                       >
                         {project.title}
@@ -155,7 +163,7 @@ export default function AlumniArchives() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.35 }}
-                className="rounded-[32px] border border-white/10 bg-[rgba(255,255,255,0.02)] p-8"
+                className="rounded-[32px] border border-white/10 bg-[rgba(255,255,255,0.02)] p-6"
                 style={{
                   boxShadow: '0 40px 120px rgba(0,0,0,0.35)',
                   backdropFilter: 'blur(22px)',
@@ -174,7 +182,7 @@ export default function AlumniArchives() {
                     <div
                       style={{
                         fontFamily: "'EB Garamond', serif",
-                        fontSize: 'clamp(32px, 3vw, 44px)',
+                        fontSize: 'clamp(26px, 2.6vw, 34px)',
                         color: '#ffffff',
                         lineHeight: 1.05,
                       }}
@@ -184,7 +192,7 @@ export default function AlumniArchives() {
                     <div
                       style={{
                         fontFamily: "'Inter', sans-serif",
-                        fontSize: 14,
+                        fontSize: 13,
                         color: '#9ca3af',
                         marginTop: 8,
                       }}
@@ -213,9 +221,9 @@ export default function AlumniArchives() {
                     style={{
                       overflow: 'hidden',
                       borderRadius: 24,
-                      marginBottom: 24,
+                      marginBottom: 20,
                       position: 'relative',
-                      minHeight: 220,
+                      minHeight: 180,
                     }}
                   >
                     <img
@@ -259,11 +267,11 @@ export default function AlumniArchives() {
                   ))}
                 </div>
 
-                <div style={{ marginTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+                <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
                   <span
                     style={{
                       fontFamily: "'Inter', sans-serif",
-                      fontSize: 12,
+                      fontSize: 11,
                       color: '#9ca3af',
                     }}
                   >
@@ -271,11 +279,11 @@ export default function AlumniArchives() {
                   </span>
                   <button
                     type="button"
-                    className="rounded-full px-6 py-3 text-sm font-semibold transition"
+                    className="rounded-full px-5 py-2.5 text-sm font-semibold transition"
                     style={{
                       background: '#10b981',
                       color: '#020617',
-                      boxShadow: '0 18px 36px rgba(16, 185, 129, 0.22)',
+                      boxShadow: '0 14px 28px rgba(16, 185, 129, 0.18)',
                     }}
                   >
                     Explore now
