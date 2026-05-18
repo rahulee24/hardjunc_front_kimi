@@ -1,265 +1,518 @@
 import { motion } from 'framer-motion';
+import { Linkedin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AmberCascades from './AmberCascades';
 import GridBackground from '../components/GridBackground';
 import CustomCursor from '../components/CustomCursor';
-import LiquidGlassButton from '../components/LiquidGlassButton';
 import { siteConfig } from '../config';
 
 const contactChannels = [
-  { label: 'Founder Desk', value: 'hello@hardjunc.com' },
-  { label: 'Studio Access', value: 'cadmint.vercel.app' },
-  { label: 'Base', value: 'Nirmaan, IIT Madras' },
+  {
+    label: 'Email',
+    value: 'admin@hardjunc.dev',
+    href: 'mailto:admin@hardjunc.dev',
+  },
+  {
+    label: 'LinkedIn',
+    value: 'HardJunc',
+    href: 'https://www.linkedin.com/company/hardjunc',
+    featured: true,
+  },
+  {
+    label: 'Address',
+    value: 'Sudha & Shankar Innovation Hub\nIndian Institute Of Technology Madras\nChennai-600036',
+  },
 ];
 
-const contactPrompts = [
-  'Prototype collaboration',
-  'Campus or lab partnership',
-  'Early CADmint access',
-  'Hardware workflow demo',
+const teamContacts = [
+  {
+    name: 'Jesvitha K.',
+    role: 'Founder and CEO',
+    phone: '+91 6380790971',
+    email: 'ceo@hardjunc.dev',
+    linkedin: 'https://www.linkedin.com/company/hardjunc',
+  },
+  {
+    name: 'Rahul Roy',
+    role: 'Co-Founder and CTO',
+    phone: '+91 9174471745',
+    email: 'cto@hardjunc.dev',
+    linkedin: 'https://www.linkedin.com/company/hardjunc',
+  },
 ];
 
 export default function Contact() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ minHeight: '100vh', background: '#070909', position: 'relative', overflow: 'hidden' }}>
+    <div className="contact-page">
       <CustomCursor />
       <div className="scanline-overlay" />
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.28 }}>
+      <div className="contact-rain">
         <AmberCascades />
       </div>
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.55 }}>
+      <div className="contact-grid-bg">
         <GridBackground />
       </div>
+      <div className="contact-vignette" />
 
-      <nav
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
-        style={{
-          height: 80,
-          padding: '0 5vw',
-          background: 'rgba(7, 9, 9, 0.86)',
-          backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(16, 185, 129, 0.08)',
-        }}
-      >
+      <nav className="contact-nav">
         <button
           type="button"
           onClick={() => navigate('/')}
-          className="text-white"
-          style={{
-            border: 0,
-            background: 'transparent',
-            fontFamily: "'GeistMono', monospace",
-            fontSize: 18,
-            fontWeight: 400,
-            letterSpacing: '-0.5px',
-          }}
+          className="contact-brand"
         >
           {siteConfig.brandName}
         </button>
         <button
           type="button"
           onClick={() => navigate('/')}
-          className="nav-link"
-          style={{ border: 0, background: 'transparent' }}
+          className="nav-link contact-back"
         >
           Back to home
         </button>
       </nav>
 
-      <main style={{ position: 'relative', zIndex: 2, padding: '140px 5vw 80px' }}>
-        <div style={{ maxWidth: 1180, margin: '0 auto' }}>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(420px,1fr)] lg:items-start">
-            <section>
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55 }}
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: 12,
-                  fontWeight: 300,
-                  letterSpacing: '3px',
-                  textTransform: 'uppercase',
-                  color: '#9ce8d0',
-                  marginBottom: 26,
-                }}
-              >
-                Contact HardJunc
-              </motion.div>
+      <main className="contact-main">
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="contact-hero"
+        >
+          <p className="contact-kicker">Contact HardJunc</p>
+          <h1>CONTACT US.</h1>
+          <p className="contact-intro">
+            Reach the HardJunc team for partnerships, demos, early access, and product conversations.
+          </p>
+        </motion.section>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 26 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.08 }}
-                style={{
-                  fontFamily: "'GeistMono', monospace",
-                  fontSize: 'clamp(44px, 6vw, 86px)',
-                  lineHeight: 1,
-                  letterSpacing: '-2px',
-                  color: '#ffffff',
-                  margin: '0 0 28px',
-                  textWrap: 'balance',
-                }}
-              >
-                BUILD THE NEXT PROTOTYPE WITH US.
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.18 }}
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: 'clamp(16px, 1.45vw, 20px)',
-                  lineHeight: 1.75,
-                  color: '#a7b4b1',
-                  maxWidth: 680,
-                  margin: '0 0 38px',
-                }}
-              >
-                Tell us what you are building, where your workflow breaks, or how your lab wants to use CADmint. We will route it to the right person and respond with a clear next step.
-              </motion.p>
-
-              <div className="grid gap-4 sm:grid-cols-3" style={{ maxWidth: 760 }}>
-                {contactChannels.map((channel, index) => (
-                  <motion.div
-                    key={channel.label}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: 0.24 + index * 0.06 }}
-                    style={{
-                      padding: '18px 16px',
-                      borderTop: '1px solid rgba(16, 185, 129, 0.22)',
-                      borderBottom: '1px solid rgba(255,255,255,0.06)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontFamily: "'GeistMono', monospace",
-                        fontSize: 10,
-                        letterSpacing: '0.16em',
-                        textTransform: 'uppercase',
-                        color: '#10b981',
-                        marginBottom: 10,
-                      }}
-                    >
-                      {channel.label}
-                    </div>
-                    <div style={{ fontFamily: "'Inter', sans-serif", fontSize: 13, lineHeight: 1.55, color: '#d1d5db' }}>
-                      {channel.value}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </section>
-
-            <motion.section
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.18 }}
-              style={{
-                border: '1px solid rgba(16, 185, 129, 0.18)',
-                background: 'linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(255,255,255,0.025))',
-                boxShadow: '0 32px 120px rgba(0,0,0,0.34)',
-                backdropFilter: 'blur(18px)',
-                padding: '30px',
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, marginBottom: 26 }}>
-                <div>
-                  <h2
-                    style={{
-                      fontFamily: "'EB Garamond', serif",
-                      fontSize: 'clamp(30px, 3vw, 44px)',
-                      lineHeight: 1,
-                      color: '#ffffff',
-                      margin: '0 0 10px',
-                    }}
-                  >
-                    Start a conversation
-                  </h2>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: 14, lineHeight: 1.65, color: '#95a3a0', margin: 0 }}>
-                    Share the signal. We will handle the routing.
-                  </p>
-                </div>
-                <span
-                  style={{
-                    fontFamily: "'GeistMono', monospace",
-                    fontSize: 11,
-                    color: '#10b981',
-                    letterSpacing: '0.18em',
-                    paddingTop: 8,
-                  }}
-                >
-                  ONLINE
-                </span>
-              </div>
-
-              <form style={{ display: 'grid', gap: 16 }}>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <input aria-label="Name" placeholder="Name" className="contact-input" />
-                  <input aria-label="Email" placeholder="Email" className="contact-input" />
-                </div>
-                <input aria-label="Organization" placeholder="Organization / lab" className="contact-input" />
-
-                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                  {contactPrompts.map((prompt) => (
-                    <button
-                      type="button"
-                      key={prompt}
-                      style={{
-                        padding: '9px 12px',
-                        border: '1px solid rgba(16, 185, 129, 0.18)',
-                        background: 'rgba(0,0,0,0.22)',
-                        color: '#b7ddd3',
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: 12,
-                      }}
-                    >
-                      {prompt}
-                    </button>
+        <section className="contact-channel-grid" aria-label="Contact channels">
+          {contactChannels.map((channel, index) => {
+            const content = (
+              <>
+                <span className="contact-card-label">{channel.label}</span>
+                <span className="contact-card-value">
+                  {channel.value.split('\n').map((line) => (
+                    <span key={line}>{line}</span>
                   ))}
+                </span>
+                {channel.featured && <span className="contact-orbit" aria-hidden="true" />}
+              </>
+            );
+
+            return (
+              <motion.div
+                key={channel.label}
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.18 + index * 0.08 }}
+                className={`contact-info-card${channel.featured ? ' is-featured' : ''}`}
+              >
+                {channel.href ? (
+                  <a href={channel.href} target={channel.href.startsWith('http') ? '_blank' : undefined} rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                    {content}
+                  </a>
+                ) : (
+                  <div>{content}</div>
+                )}
+              </motion.div>
+            );
+          })}
+        </section>
+
+        <section className="contact-team-grid" aria-label="Team contacts">
+          {teamContacts.map((person, index) => (
+            <motion.article
+              key={person.email}
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.42 + index * 0.1 }}
+              className="contact-person-card"
+            >
+              <div className="contact-person-heading">
+                <div>
+                  <h2>{person.name}</h2>
+                  <p>{person.role}</p>
                 </div>
-
-                <textarea aria-label="Message" placeholder="What are you trying to build?" className="contact-input" rows={6} />
-
-                <a href="mailto:hello@hardjunc.com" style={{ textDecoration: 'none', width: 'fit-content' }}>
-                  <LiquidGlassButton>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      Send Message
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="22" y1="2" x2="11" y2="13" />
-                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                      </svg>
-                    </span>
-                  </LiquidGlassButton>
+                <a
+                  href={person.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${person.name} LinkedIn`}
+                  className="contact-linkedin"
+                >
+                  <Linkedin size={18} strokeWidth={2.2} />
                 </a>
-              </form>
-            </motion.section>
-          </div>
-        </div>
+              </div>
+
+              <dl className="contact-person-details">
+                <div>
+                  <dt>Phone</dt>
+                  <dd>
+                    <a href={`tel:${person.phone.replace(/\s/g, '')}`}>{person.phone}</a>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Email</dt>
+                  <dd>
+                    <a href={`mailto:${person.email}`}>{person.email}</a>
+                  </dd>
+                </div>
+              </dl>
+            </motion.article>
+          ))}
+        </section>
       </main>
 
       <style>{`
-        .contact-input {
-          width: 100%;
-          border: 1px solid rgba(16, 185, 129, 0.16);
-          background: rgba(0, 0, 0, 0.28);
-          color: #f3f4f6;
-          padding: 14px 15px;
+        .contact-page {
+          min-height: 100vh;
+          background: #050909;
+          color: #ffffff;
+          overflow-x: hidden;
+          position: relative;
+        }
+
+        .contact-rain,
+        .contact-grid-bg {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .contact-rain {
+          opacity: 0.38;
+        }
+
+        .contact-grid-bg {
+          opacity: 0.58;
+        }
+
+        .contact-vignette {
+          position: fixed;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          background:
+            linear-gradient(90deg, rgba(5, 9, 9, 0.92), rgba(5, 9, 9, 0.24) 42%, rgba(5, 9, 9, 0.78)),
+            linear-gradient(180deg, rgba(5, 9, 9, 0.12), rgba(5, 9, 9, 0.86));
+        }
+
+        .contact-nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 50;
+          height: 78px;
+          padding: 0 6.8vw;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: linear-gradient(180deg, rgba(5, 9, 9, 0.9), rgba(5, 9, 9, 0));
+        }
+
+        .contact-brand {
+          border: 0;
+          background: transparent;
+          color: #ffffff;
+          font-family: 'GeistMono', monospace;
+          font-size: 18px;
+          font-weight: 400;
+          letter-spacing: -0.5px;
+        }
+
+        .contact-back {
+          border: 0;
+          background: transparent;
+        }
+
+        .contact-main {
+          position: relative;
+          z-index: 2;
+          width: min(100% - 10vw, 1476px);
+          margin: 0 auto;
+          padding: clamp(116px, 14vh, 150px) 0 72px;
+        }
+
+        .contact-hero {
+          max-width: 960px;
+          margin-bottom: clamp(42px, 6vw, 64px);
+        }
+
+        .contact-kicker,
+        .contact-card-label,
+        .contact-person-details dt {
+          font-family: 'GeistMono', monospace;
+          text-transform: uppercase;
+          color: #21d2a0;
+          letter-spacing: 0.34em;
+          font-size: 12px;
+          font-weight: 400;
+        }
+
+        .contact-kicker {
+          margin: 0 0 34px;
+          color: #a4f2d8;
+        }
+
+        .contact-hero h1 {
+          margin: 0;
+          font-family: 'GeistMono', monospace;
+          font-size: clamp(58px, 8vw, 112px);
+          line-height: 0.94;
+          letter-spacing: -0.05em;
+          color: #f8fafc;
+          font-weight: 400;
+          text-shadow: 0 12px 46px rgba(0, 0, 0, 0.58);
+        }
+
+        .contact-intro {
+          margin: clamp(36px, 4vw, 48px) 0 0;
+          max-width: 900px;
           font-family: 'Inter', sans-serif;
-          font-size: 14px;
-          outline: none;
-          transition: border-color 0.25s ease, background 0.25s ease;
+          font-size: clamp(19px, 2vw, 26px);
+          line-height: 1.65;
+          color: rgba(229, 231, 235, 0.68);
+          font-weight: 300;
         }
-        .contact-input::placeholder {
-          color: rgba(209, 213, 219, 0.42);
+
+        .contact-channel-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px;
+          margin-bottom: 44px;
         }
-        .contact-input:focus {
-          border-color: rgba(16, 185, 129, 0.55);
-          background: rgba(16, 185, 129, 0.06);
+
+        .contact-info-card,
+        .contact-person-card {
+          border: 1px solid rgba(16, 185, 129, 0.2);
+          background: linear-gradient(180deg, rgba(2, 10, 9, 0.78), rgba(2, 8, 8, 0.52));
+          box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.025);
+          backdrop-filter: blur(6px);
+        }
+
+        .contact-info-card {
+          min-height: 176px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .contact-info-card.is-featured {
+          background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(2, 9, 9, 0.72));
+          border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        .contact-info-card > a,
+        .contact-info-card > div {
+          min-height: 176px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 22px;
+          padding: 30px 28px;
+          color: inherit;
+          text-decoration: none;
+        }
+
+        .contact-card-value {
+          display: grid;
+          gap: 7px;
+          font-family: 'Inter', sans-serif;
+          color: rgba(243, 244, 246, 0.82);
+          font-size: 19px;
+          line-height: 1.45;
+          font-weight: 300;
+        }
+
+        .contact-orbit {
+          position: absolute;
+          top: 20px;
+          right: 104px;
+          width: 48px;
+          height: 48px;
+          border: 1px solid rgba(16, 185, 129, 0.55);
+          border-radius: 999px;
+          box-shadow: 0 0 34px rgba(16, 185, 129, 0.16);
+        }
+
+        .contact-orbit::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 10px;
+          height: 10px;
+          border-radius: 999px;
+          background: #21d2a0;
+          transform: translate(-50%, -50%);
+          box-shadow: 0 0 16px rgba(33, 210, 160, 0.72);
+        }
+
+        .contact-team-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 24px;
+        }
+
+        .contact-person-card {
+          min-height: 310px;
+          padding: clamp(34px, 4vw, 44px) clamp(30px, 4vw, 36px) 34px;
+        }
+
+        .contact-person-heading {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 24px;
+          padding-bottom: 36px;
+        }
+
+        .contact-person-heading h2 {
+          margin: 0;
+          font-family: 'EB Garamond', serif;
+          font-size: clamp(44px, 4vw, 56px);
+          line-height: 0.95;
+          letter-spacing: -0.03em;
+          color: #ffffff;
+          font-weight: 500;
+        }
+
+        .contact-person-heading p {
+          margin: 14px 0 0;
+          font-family: 'Inter', sans-serif;
+          color: #92e9cf;
+          font-size: 20px;
+          line-height: 1.35;
+          font-weight: 300;
+        }
+
+        .contact-linkedin {
+          flex: 0 0 auto;
+          width: 52px;
+          height: 52px;
+          display: grid;
+          place-items: center;
+          border: 1px solid rgba(16, 185, 129, 0.42);
+          background: rgba(16, 185, 129, 0.08);
+          color: #21d2a0;
+          text-decoration: none;
+          transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .contact-linkedin:hover {
+          transform: translateY(-2px);
+          border-color: rgba(33, 210, 160, 0.78);
+          background: rgba(16, 185, 129, 0.15);
+        }
+
+        .contact-person-details {
+          margin: 0;
+          display: grid;
+        }
+
+        .contact-person-details div {
+          display: grid;
+          grid-template-columns: minmax(120px, 0.5fr) minmax(0, 1fr);
+          gap: 24px;
+          padding: 20px 0;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-person-details dd {
+          margin: 0;
+          text-align: right;
+          font-family: 'Inter', sans-serif;
+          font-size: 18px;
+          color: rgba(243, 244, 246, 0.84);
+          font-weight: 300;
+        }
+
+        .contact-person-details a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        .contact-info-card a:hover .contact-card-value,
+        .contact-person-details a:hover {
+          color: #ffffff;
+        }
+
+        @media (max-width: 1024px) {
+          .contact-channel-grid,
+          .contact-team-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .contact-main {
+            width: min(100% - 8vw, 760px);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .contact-nav {
+            height: 70px;
+            padding: 0 5vw;
+          }
+
+          .contact-back {
+            font-size: 11px;
+          }
+
+          .contact-main {
+            width: min(100% - 32px, 560px);
+            padding-top: 106px;
+          }
+
+          .contact-kicker,
+          .contact-card-label,
+          .contact-person-details dt {
+            font-size: 10px;
+            letter-spacing: 0.24em;
+          }
+
+          .contact-hero h1 {
+            font-size: clamp(48px, 16vw, 72px);
+            letter-spacing: -0.06em;
+          }
+
+          .contact-intro {
+            font-size: 17px;
+          }
+
+          .contact-info-card > a,
+          .contact-info-card > div {
+            padding: 26px 24px;
+          }
+
+          .contact-orbit {
+            right: 24px;
+          }
+
+          .contact-person-heading {
+            align-items: flex-start;
+            padding-bottom: 28px;
+          }
+
+          .contact-person-heading h2 {
+            font-size: 42px;
+          }
+
+          .contact-person-heading p {
+            font-size: 17px;
+          }
+
+          .contact-person-details div {
+            grid-template-columns: 1fr;
+            gap: 10px;
+          }
+
+          .contact-person-details dd {
+            text-align: left;
+            font-size: 16px;
+          }
         }
       `}</style>
     </div>
