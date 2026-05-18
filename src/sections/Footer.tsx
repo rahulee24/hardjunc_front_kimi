@@ -93,6 +93,45 @@ export default function Footer() {
           </span>
         </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 12,
+            padding: '10px 20px',
+            borderRadius: 8,
+            border: '1px solid rgba(16, 185, 129, 0.15)',
+            background: 'rgba(16, 185, 129, 0.04)',
+            marginBottom: 80,
+          }}
+        >
+          <div
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: '#10b981',
+              boxShadow: '0 0 8px rgba(16, 185, 129, 0.6)',
+            }}
+          />
+          <span
+            style={{
+              fontFamily: "'GeistMono', monospace",
+              fontSize: 11,
+              color: '#34d399',
+              letterSpacing: '1px',
+            }}
+          >
+            THE PROTOTYPE POWERED BY YOU
+          </span>
+        </motion.div>
+
+
+
         {footerConfig.columns.length > 0 && (
           <div
             className="grid grid-cols-1 md:grid-cols-2"
