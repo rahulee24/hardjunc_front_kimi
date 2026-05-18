@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AmberCascades from './AmberCascades';
+import CustomCursor from '../components/CustomCursor';
 import { siteConfig, capabilityDetailConfig } from '../config';
 
 const SLUGS = Object.keys(capabilityDetailConfig.capabilities);
@@ -25,6 +26,9 @@ export default function CapabilityDetail() {
 
   return (
     <div style={{ background: '#070909', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+      <CustomCursor />
+      <div className="scanline-overlay" />
+
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.22 }}>
         <AmberCascades />
       </div>
