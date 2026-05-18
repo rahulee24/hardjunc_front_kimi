@@ -26,7 +26,7 @@ export default function Hero() {
     <section
       id="hero"
       className="relative w-full overflow-hidden"
-      style={{ height: '100vh' }}
+      style={{ minHeight: '100svh' }}
     >
       <AmberCascades />
       <GridBackground />
@@ -34,8 +34,8 @@ export default function Hero() {
       <div
         className="relative z-10 flex flex-col justify-between pointer-events-none"
         style={{
-          height: '100%',
-          padding: '28vh 5vw 8vh',
+          minHeight: '100svh',
+          padding: 'clamp(110px, 24svh, 260px) 5vw clamp(56px, 8svh, 96px)',
         }}
       >
         <div>
