@@ -1,10 +1,9 @@
 import { motion } from 'framer-motion';
 import { Linkedin } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import AmberCascades from './AmberCascades';
 import GridBackground from '../components/GridBackground';
 import CustomCursor from '../components/CustomCursor';
-import { siteConfig } from '../config';
 
 const contactChannels = [
   {
@@ -42,7 +41,9 @@ const teamContacts = [
 ];
 
 export default function Contact() {
-  const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+  }, []);
 
   return (
     <div className="contact-page">
@@ -55,23 +56,6 @@ export default function Contact() {
         <GridBackground />
       </div>
       <div className="contact-vignette" />
-
-      <nav className="contact-nav">
-        <button
-          type="button"
-          onClick={() => navigate('/')}
-          className="contact-brand"
-        >
-          {siteConfig.brandName}
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate('/')}
-          className="nav-link contact-back"
-        >
-          Back to home
-        </button>
-      </nav>
 
       <main className="contact-main">
         <motion.section
@@ -200,46 +184,17 @@ export default function Contact() {
             linear-gradient(180deg, rgba(5, 9, 9, 0.12), rgba(5, 9, 9, 0.86));
         }
 
-        .contact-nav {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 50;
-          height: 78px;
-          padding: 0 6.8vw;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          background: linear-gradient(180deg, rgba(5, 9, 9, 0.9), rgba(5, 9, 9, 0));
-        }
-
-        .contact-brand {
-          border: 0;
-          background: transparent;
-          color: #ffffff;
-          font-family: 'GeistMono', monospace;
-          font-size: 18px;
-          font-weight: 400;
-          letter-spacing: -0.5px;
-        }
-
-        .contact-back {
-          border: 0;
-          background: transparent;
-        }
-
         .contact-main {
           position: relative;
           z-index: 2;
-          width: min(100% - 10vw, 1476px);
+          width: min(100% - 13vw, 1472px);
           margin: 0 auto;
-          padding: clamp(116px, 14vh, 150px) 0 72px;
+          padding: clamp(42px, 7vh, 58px) 0 56px;
         }
 
         .contact-hero {
-          max-width: 960px;
-          margin-bottom: clamp(42px, 6vw, 64px);
+          max-width: 930px;
+          margin-bottom: clamp(30px, 3.8vw, 42px);
         }
 
         .contact-kicker,
@@ -254,24 +209,24 @@ export default function Contact() {
         }
 
         .contact-kicker {
-          margin: 0 0 34px;
+          margin: 0 0 26px;
           color: #a4f2d8;
         }
 
         .contact-hero h1 {
           margin: 0;
           font-family: 'GeistMono', monospace;
-          font-size: clamp(58px, 8vw, 112px);
+          font-size: clamp(74px, 8.4vw, 132px);
           line-height: 0.94;
-          letter-spacing: -0.05em;
+          letter-spacing: -0.045em;
           color: #f8fafc;
           font-weight: 400;
           text-shadow: 0 12px 46px rgba(0, 0, 0, 0.58);
         }
 
         .contact-intro {
-          margin: clamp(36px, 4vw, 48px) 0 0;
-          max-width: 900px;
+          margin: clamp(30px, 3vw, 38px) 0 0;
+          max-width: 940px;
           font-family: 'Inter', sans-serif;
           font-size: clamp(19px, 2vw, 26px);
           line-height: 1.65;
@@ -283,7 +238,7 @@ export default function Contact() {
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 20px;
-          margin-bottom: 44px;
+          margin-bottom: 42px;
         }
 
         .contact-info-card,
@@ -295,7 +250,7 @@ export default function Contact() {
         }
 
         .contact-info-card {
-          min-height: 176px;
+          min-height: 156px;
           position: relative;
           overflow: hidden;
         }
@@ -307,12 +262,12 @@ export default function Contact() {
 
         .contact-info-card > a,
         .contact-info-card > div {
-          min-height: 176px;
+          min-height: 156px;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           gap: 22px;
-          padding: 30px 28px;
+          padding: 28px 26px;
           color: inherit;
           text-decoration: none;
         }
@@ -354,12 +309,12 @@ export default function Contact() {
         .contact-team-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 24px;
+          gap: 26px;
         }
 
         .contact-person-card {
-          min-height: 310px;
-          padding: clamp(34px, 4vw, 44px) clamp(30px, 4vw, 36px) 34px;
+          min-height: 276px;
+          padding: clamp(30px, 3vw, 38px) clamp(30px, 3vw, 36px) 28px;
         }
 
         .contact-person-heading {
@@ -367,13 +322,13 @@ export default function Contact() {
           justify-content: space-between;
           align-items: flex-start;
           gap: 24px;
-          padding-bottom: 36px;
+          padding-bottom: 30px;
         }
 
         .contact-person-heading h2 {
           margin: 0;
           font-family: 'EB Garamond', serif;
-          font-size: clamp(44px, 4vw, 56px);
+          font-size: clamp(44px, 3.6vw, 58px);
           line-height: 0.95;
           letter-spacing: -0.03em;
           color: #ffffff;
@@ -417,7 +372,7 @@ export default function Contact() {
           display: grid;
           grid-template-columns: minmax(120px, 0.5fr) minmax(0, 1fr);
           gap: 24px;
-          padding: 20px 0;
+          padding: 18px 0;
           border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -452,18 +407,9 @@ export default function Contact() {
         }
 
         @media (max-width: 640px) {
-          .contact-nav {
-            height: 70px;
-            padding: 0 5vw;
-          }
-
-          .contact-back {
-            font-size: 11px;
-          }
-
           .contact-main {
             width: min(100% - 32px, 560px);
-            padding-top: 106px;
+            padding-top: 34px;
           }
 
           .contact-kicker,
