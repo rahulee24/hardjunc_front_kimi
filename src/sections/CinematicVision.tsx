@@ -73,103 +73,13 @@ export default function CinematicVision() {
             {architectureConfig.sectionLabel}
           </motion.div>
         )}
-        <div className="section-divider mb-16" />
+        <div className="section-divider mb-12" />
 
         <div className="relative">
-          {/* Video or animated placeholder */}
-          {architectureConfig.videoPath ? (
-            <div
-              className="relative overflow-hidden"
-              style={{
-                width: '100%',
-                maxWidth: '80vw',
-                margin: '0 auto',
-                aspectRatio: '21/9',
-              }}
-            >
-              <video
-                ref={useRef<HTMLVideoElement>(null)}
-                src={architectureConfig.videoPath}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-                style={{ display: 'block' }}
-              />
-            </div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.98 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="relative overflow-hidden"
-              style={{
-                width: '100%',
-                maxWidth: '80vw',
-                margin: '0 auto',
-                aspectRatio: '21/9',
-                borderRadius: 16,
-                border: '1px solid rgba(16, 185, 129, 0.15)',
-                background: 'linear-gradient(135deg, #0d1117 0%, #0a0a0a 50%, #0d1f17 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              {/* Animated circuit pattern background */}
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: `
-                    radial-gradient(ellipse at 20% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-                    radial-gradient(ellipse at 80% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 50%)
-                  `,
-                }}
-              />
-              <div
-                style={{
-                  position: 'relative',
-                  zIndex: 2,
-                  textAlign: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: "'GeistMono', monospace",
-                    fontSize: 'clamp(24px, 3vw, 48px)',
-                    fontWeight: 400,
-                    color: '#10b981',
-                    letterSpacing: '4px',
-                    textTransform: 'uppercase',
-                    marginBottom: 16,
-                    textShadow: '0 0 40px rgba(16, 185, 129, 0.3)',
-                  }}
-                >
-                  CADMINT
-                </div>
-                <div
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: 14,
-                    fontWeight: 300,
-                    color: '#666',
-                    letterSpacing: '2px',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Ecosystem Visualization
-                </div>
-              </div>
-            </motion.div>
-          )}
-
           <div
             ref={textRef}
             className="flex flex-col md:flex-row md:items-center"
-            style={{ marginTop: 160, gap: '60px' }}
+            style={{ marginTop: 0, gap: '60px' }}
           >
             {architectureConfig.title && (
               <h2
