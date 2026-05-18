@@ -27,23 +27,20 @@ const statusItems = [
 ];
 
 export default function AiDemo() {
-  const [visibleLines, setVisibleLines] = useState(0);
+const [typedLines, setTypedLines] = useState<string[]>(() => codeLines.map(() => ''));
+  const [currentLine, setCurrentLine] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const currentLineRef = useRef(0);
+  const currentCharRef = useRef(0);
+  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            let line = 0;
-            const interval = setInterval(() => {
-              line++;
-              setVisibleLines(line);
-              if (line >= codeLines.length) {
-                clearInterval(interval);
-              }
-            }, 80);
             observer.unobserve(entry.target);
+            typeLine();
           }
         });
       },
@@ -51,8 +48,55 @@ export default function AiDemo() {
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const typeLine = () => {
+    const lineIndex = currentLineRef.current;
+    if (lineIndex >= codeLines.length) return;
+
+    const currentText = codeLines[lineIndex].text;
+    if (currentText === '') {
+      setTypedLines((prev) => {
+        const next = [...prev];
+        next[lineIndex] = '';
+        return next;
+      });
+      currentLineRef.current += 1;
+      setCurrentLine(currentLineRef.current);
+      timeoutRef.current = window.setTimeout(typeLine, 80);
+      return;
+    }
+
+    currentCharRef.current = 0;
+
+    const typeChar = () => {
+      currentCharRef.current += 1;
+      const nextText = currentText.slice(0, currentCharRef.current);
+
+      setTypedLines((prev) => {
+        const next = [...prev];
+        next[lineIndex] = nextText;
+        return next;
+      });
+
+      if (currentCharRef.current < currentText.length) {
+        timeoutRef.current = window.setTimeout(typeChar, 20);
+      } else {
+        currentLineRef.current += 1;
+        setCurrentLine(currentLineRef.current);
+        timeoutRef.current = window.setTimeout(typeLine, 80);
+      }
+    };
+
+    typeChar();
+  };
 
   return (
     <section
@@ -133,47 +177,64 @@ export default function AiDemo() {
 
             {/* Code content */}
             <div style={{ padding: '20px 24px' }}>
-              {codeLines.map((line, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 16,
-                    opacity: i < visibleLines ? 1 : 0,
-                    transform: i < visibleLines ? 'translateX(0)' : 'translateX(-10px)',
-                    transition: 'all 0.3s ease',
-                    minHeight: line.type === 'blank' ? 8 : 24,
-                  }}
-                >
-                  <span
+              {codeLines.map((line, i) => {
+                const isCurrent = i === currentLine;
+                const typedText = typedLines[i];
+                return (
+                  <div
+                    key={i}
                     style={{
-                      fontFamily: "'GeistMono', monospace",
-                      fontSize: 12,
-                      color: '#444',
-                      width: 24,
-                      textAlign: 'right',
-                      flexShrink: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 16,
+                      opacity: typedText || isCurrent ? 1 : 0,
+                      transform: typedText || isCurrent ? 'translateX(0)' : 'translateX(-10px)',
+                      transition: 'all 0.3s ease',
+                      minHeight: line.type === 'blank' ? 8 : 24,
                     }}
                   >
-                    {line.type !== 'blank' ? i + 1 : ''}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'GeistMono', monospace",
-                      fontSize: 13,
-                      color: line.type === 'comment' ? '#6b7280' : line.type === 'code' ? '#10b981' : '#888',
-                      fontStyle: line.type === 'comment' ? 'italic' : 'normal',
-                      letterSpacing: '0.3px',
-                    }}
-                  >
-                    {line.text}
-                  </span>
-                </div>
-              ))}
+                    <span
+                      style={{
+                        fontFamily: "'GeistMono', monospace",
+                        fontSize: 12,
+                        color: '#444',
+                        width: 24,
+                        textAlign: 'right',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {line.type !== 'blank' ? i + 1 : ''}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "'GeistMono', monospace",
+                        fontSize: 13,
+                        color: line.type === 'comment' ? '#6b7280' : line.type === 'code' ? '#10b981' : '#888',
+                        fontStyle: line.type === 'comment' ? 'italic' : 'normal',
+                        letterSpacing: '0.3px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 4,
+                      }}
+                    >
+                      <span>{typedText}</span>
+                      {isCurrent && line.text !== '' && (
+                        <span
+                          style={{
+                            width: 8,
+                            height: 18,
+                            background: '#10b981',
+                            display: 'inline-block',
+                            animation: 'blink 1s step-end infinite',
+                          }}
+                        />
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
 
-              {/* Blinking cursor */}
-              {visibleLines >= codeLines.length && (
+              {currentLine >= codeLines.length && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginTop: 4 }}>
                   <span style={{ width: 24 }} />
                   <span
